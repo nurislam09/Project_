@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Course</title>
+    <style>table,
+    td {
+        border: 4px solid black;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    body {
+        background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+    }
+    tr{
+        margin-top: -100px;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Description</th>
+        <th scope="col">Company ID</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="course: ${getAllCourse}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.duration}"></td>
+        <td th:text="${course.description}"></td>
+        <td th:text="${course.company.id}"></td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Student By Group Id</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+
+  body {
+    background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+  }
+  tr{
+    margin-top: -100px;
+  }
+  </style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+<table class="table table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">First name</th>
+    <th scope="col">Last name</th>
+    <th scope="col">Phone number</th>
+    <th scope="col">Email</th>
+    <th scope="col">Study Format</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody class="table-success">
+  <tr th:each="student: ${getAllStudentByGroupId}">
+    <td th:text="${student.id}"></td>
+    <td th:text="${student.firstName}"></td>
+    <td th:text="${student.lastName}"></td>
+    <td th:text="${student.phoneNumber}"></td>
+    <td th:text="${student.email}"></td>
+    <td th:text="${student.studyFormat}"></td>
+
+
+    <td>
+      <a th:href="@{/updateStudent/{id}(id=${student.id})}">
+        <button>Update</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/{groupId}/{id}/deleteStudentById(groupId=${groupId}, id=${student.id})}"
+         onclick="return confirm('Are you sure to delete this course?');">
+        <button>Delete</button>
+      </a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+  <a th:href="@{/getAllStudentByGroupId/{groupId}/new(groupId=${groupId})}">
+    <button style="font-size: 25px;"> Add Student</button>
+  </a>
+</div>
+<div style="text-align: center">
+  <a th:href="@{/getAllStudent/{groupId}(groupId=${groupId})}">
+    <button style="font-size: 25px;"> SEE ALL STUDENT </button>
+  </a>
+</div>
+</body>
+</html>

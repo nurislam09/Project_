@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>SEE All Task By Lesson Id</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+
+  body {
+    background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+  }
+  tr{
+    margin-top: -100px;
+  }
+  </style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+<table class="table table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">Task name</th>
+    <th scope="col">Task text</th>
+    <th scope="col">Deadline</th>
+    <th scope="col">Lesson ID</th>
+  </tr>
+  </thead>
+  <tbody class="table-success">
+  <tr th:each="task: ${getAllTask}">
+    <td th:text="${task.id}"></td>
+    <td th:text="${task.taskName}"></td>
+    <td th:text="${task.taskText}"></td>
+    <td th:text="${task.deadLine}"></td>
+    <td th:text="${task.lesson.id}"></td>
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+</body>
+</html>

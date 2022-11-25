@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Course By Company Id</title>
+    <style>table,
+    td {
+        border: 1px solid #333333FF;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    body {
+        background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+    }
+    tr{
+        margin-top: -100px;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Description</th>
+        <th scope="col">Instructors</th>
+        <th scope="col">Lessons</th>
+        <!--        <th scope="col">AssignGroup</th>-->
+        <th scope="col">Groups</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="course: ${getAllCourseByCompanyId}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.duration}"></td>
+        <td th:text="${course.description}"></td>
+
+        <td>
+            <a th:href="@{/getAllInstructorByCourseId/{courseId}(courseId=${course.id})}">
+                <button>Instructors</button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{/getAllLessonByCourseId/{courseId}(courseId=${course.id})}">
+                <button>Lessons</button>
+            </a>
+        </td>
+
+        <!--        <td>-->
+        <!--            <form th:method="POST"-->
+        <!--                  th:action="@{/{courseId}/{id}/assignGroup(courseId=${courseId}, id=${group.id})}">-->
+        <!--                <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"-->
+        <!--                        th:object="${group}" th:field="*{id}">-->
+        <!--                    <option th:each="group : ${groups}"-->
+        <!--                            th:value="${group.id}"-->
+        <!--                            th:text="${group.groupName}">-->
+        <!--                    </option>-->
+        <!--                </select>-->
+        <!--                <input type="submit" value="submit"/>-->
+        <!--            </form>-->
+        <!--        </td>-->
+
+        <td>
+            <a th:href="@{/getAllGroupByCourseId/{courseId}(courseId=${course.id})}">
+                <button>Groups</button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{/updateCourse/{id}(id=${course.id})}">
+                <button>Update</button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{/{companyId}/{id}/deleteCourseById(companyId=${companyId}, id=${course.id})}"
+               onclick="return confirm('Are you sure to delete this course?');">
+                <button>Delete</button>
+            </a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+    <a th:href="@{/getAllCourseByCompanyId/{companyId}/new(companyId=${companyId})}">
+        <button style="font-size: 25px;"> Add Course</button>
+    </a>
+</div>
+<div style="text-align: center">
+    <a th:href="@{/getAllCourse/{companyId}(companyId=${companyId})}">
+        <button style="font-size: 25px;"> SEE ALL COURSE</button>
+    </a>
+</div>
+<!--<div style="text-align: center">-->
+<!--    <a th:company th:href="@{}">-->
+<!--        <button style="font-size: 25px;"> Back to companies </button>-->
+<!--    </a>-->
+<!--</div>-->
+</body>
+</html>

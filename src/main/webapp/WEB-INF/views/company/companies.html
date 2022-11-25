@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Company</title>
+    <style>table,
+    td {
+        border: 1px solid #333333FF;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    body {
+        background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+    }
+    tr{
+        margin-top: -100px;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 4.5px solid black;
+            padding: 3px;
+
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Located Country</th>
+        <th scope="col">Courses</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="company: ${getAllCompany}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.locatedCountry}"></td>
+
+        <td>
+            <a th:href="@{/getAllCourseByCompanyId/{companyId}(companyId=${company.id})}">
+                <button>Courses</button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{/updateCompany(companyId=${company.id})}">
+                <button>Update</button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{/deleteCompany(companyId=${company.id})}"
+               onclick="return confirm('Are you sure to delete this company?');">
+                <button>Delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style="display: block; margin: auto; font-size: 50px" type="button" value="Add company"
+       onclick="window.location.href = '/new'">>
+</body>
+</html>

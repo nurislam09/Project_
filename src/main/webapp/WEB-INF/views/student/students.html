@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Student</title>
+    <style>table,
+    td {
+        border: 1px solid #333333FF;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    body {
+        background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+    }
+    tr{
+        margin-top: -100px;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Phone number</th>
+        <th scope="col">Email</th>
+        <th scope="col">Study Format</th>
+        <th scope="col">Group ID</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="student: ${getAllStudent}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.phoneNumber}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.studyFormat}"></td>
+        <td th:text="${student.group.id}"></td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+</body>
+</html>

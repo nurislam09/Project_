@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Task By Lesson Id</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+
+  body {
+    background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+  }
+  tr{
+    margin-top: -100px;
+  }
+  </style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+<table class="table table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">Task name</th>
+    <th scope="col">Task text</th>
+    <th scope="col">Deadline</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody class="table-success">
+  <tr th:each="task: ${getAllTaskByLessonId}">
+    <td th:text="${task.id}"></td>
+    <td th:text="${task.taskName}"></td>
+    <td th:text="${task.taskText}"></td>
+    <td th:text="${task.deadLine}"></td>
+
+    <td>
+      <a th:href="@{/updateTask/{id}(id=${task.id})}">
+        <button>Update</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/{lessonId}/{id}/deleteTaskById(lessonId=${lessonId}, id=${task.id})}"
+         onclick="return confirm('Are you sure to delete this course?');">
+        <button>Delete</button>
+      </a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+  <a th:href="@{/getAllTaskByLessonId/{lessonId}/new(lessonId=${lessonId})}">
+    <button style="font-size: 25px;">Add Task</button>
+  </a>
+</div>
+<div style="text-align: center">
+  <a th:href="@{/getAllTask/{lessonId}(lessonId=${lessonId})}">
+    <button style="font-size: 25px;"> SEE ALL TASK </button>
+  </a>
+</div>
+</body>
+</html>

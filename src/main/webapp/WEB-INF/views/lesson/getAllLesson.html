@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Lesson By Course Id</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+
+  body {
+    background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+  }
+  tr{
+    margin-top: -100px;
+  }
+  </style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+<table class="table table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">Lesson name</th>
+    <th scope="col">Tasks</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody class="table-success">
+  <tr th:each="lesson: ${getAllLessonByCourseId}">
+    <td th:text="${lesson.id}"></td>
+    <td th:text="${lesson.lessonName}"></td>
+
+    <td>
+      <a th:href="@{/getAllTaskByLessonId/{lessonId}(lessonId=${lesson.id})}">
+        <button>Tasks</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/updateLesson/{id}(id=${lesson.id})}">
+        <button>Update</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/{courseId}/{id}/deleteLessonById(courseId=${courseId}, id=${lesson.id})}"
+         onclick="return confirm('Are you sure to delete this course?');">
+        <button>Delete</button>
+      </a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+  <a th:href="@{/getAllLessonByCourseId/{courseId}/new(courseId=${courseId})}">
+    <button style="font-size: 25px;"> Add Lesson </button>
+  </a>
+</div>
+<div style="text-align: center">
+  <a th:href="@{/getAllLesson/{courseId}(courseId=${courseId})}">
+    <button style="font-size: 25px;"> SEE ALL LESSON </button>
+  </a>
+</div>
+</body>
+</html>

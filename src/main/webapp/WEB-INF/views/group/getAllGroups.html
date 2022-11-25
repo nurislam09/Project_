@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Group By Course Id</title>
+  <style>table,
+  td {
+    border: 1px solid #333333FF;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+  }
+
+  body {
+    background-image: url("https://velog.velcdn.com/images/moon960427/post/4941d80e-304d-4fcb-b68c-08e208ee9d7d/image.jpg");
+  }
+  tr{
+    margin-top: -100px;
+  }
+  </style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+<table class="table table-bordered">
+  <thead class="table-dark">
+  <tr>
+    <th scope="colgroup">Id</th>
+    <th scope="col">Group Name</th>
+    <th scope="col">Date Of Start</th>
+    <th scope="col">Image</th>
+    <th scope="col">Students</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody class="table-success">
+  <tr th:each="group: ${getAllGroupByCourseId}">
+    <td th:text="${group.id}"></td>
+    <td th:text="${group.groupName}"></td>
+    <td th:text="${group.dataOfStart}"></td>
+    <td th:text="${group.image}"></td>
+
+    <td>
+      <a th:href="@{/getAllStudentByGroupId/{groupId}(groupId=${group.id})}">
+        <button>Students</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/updateGroupByCourseId/{courseId}/{id}(id=${group.id}, courseId=${courseId})}">
+        <button>Update</button>
+      </a>
+    </td>
+
+    <td>
+      <a th:href="@{/{courseId}/{id}/deleteGroupById(courseId=${courseId}, id=${group.id})}"
+         onclick="return confirm('Are you sure to delete this course?');">
+        <button>Delete</button>
+      </a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+  <a th:href="@{/getAllGroupByCourseId/{courseId}/new(courseId=${courseId})}">
+    <button style="font-size: 25px;"> Add Group</button>
+  </a>
+</div>
+<div style="text-align: center">
+  <a th:href="@{/getAllGroup/{courseId}(courseId=${courseId})}">
+    <button style="font-size: 25px;"> SEE ALL GROUP</button>
+  </a>
+</div>
+</body>
+</html>
