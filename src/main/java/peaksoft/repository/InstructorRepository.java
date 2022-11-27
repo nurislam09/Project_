@@ -2,6 +2,7 @@ package peaksoft.repository;
 
 import peaksoft.model.Instructor;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface InstructorRepository {
@@ -16,4 +17,6 @@ public interface InstructorRepository {
     void updateInstructor(Long id, Instructor instructor);
 
     void deleteInstructor(Long id);
+
+    void assignInstructor(Long courseId, Long instructorId) throws IOException;
 }

@@ -30,7 +30,12 @@ public class Lesson {
         @OneToMany(cascade = {MERGE, DETACH, REFRESH, REMOVE}, fetch = FetchType.LAZY, mappedBy = "lesson")
         private List<Task> tasks;
 
-        public void addTask(Task task){
+    public Lesson(String lessonName, Course course) {
+        this.lessonName = lessonName;
+        this.course = course;
+    }
+
+    public void addTask(Task task){
             if (tasks==null){
                 tasks=new ArrayList<>();
             }

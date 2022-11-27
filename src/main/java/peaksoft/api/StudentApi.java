@@ -1,5 +1,6 @@
 package peaksoft.api;
 
+import peaksoft.enums.StudyFormat;
 import peaksoft.model.Student;
 import peaksoft.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +73,16 @@ public class StudentApi {
     @GetMapping("/{groupId}/{id}/deleteStudentById")
     public String deleteStudentById(@PathVariable Long groupId, @PathVariable Long id) {
         studentService.deleteStudent(id);
-        return "redirect:/getAllStudent/{groupId}" + groupId;
+        return "redirect:/getAllStudentByGroupId/" + groupId;
     }
 
-
+    @GetMapping("/{id}/addStudent")
+    public String assignStudent(@PathVariable Long id, Model model) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
+        model.addAttribute("groupId", id);
+        return "/student/addStudent";
+    }
 
 }

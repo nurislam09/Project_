@@ -2,6 +2,7 @@ package peaksoft.service;
 
 import peaksoft.model.Student;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StudentService {
@@ -11,4 +12,6 @@ public interface StudentService {
     void saveStudent(Long groupId, Student student);
     void updateStudent(Long id, Student student);
     void deleteStudent(Long id);
+
+    void assignGroup(Long courseId, Long id) throws IOException;
 }

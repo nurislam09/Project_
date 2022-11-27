@@ -32,12 +32,14 @@ public class Task {
     @Column(length = 500)
     private Date deadLine;
 
+    @ManyToOne(cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
+    private Lesson lesson;
+
     public Task(String taskName, String taskText, Date deadLine) {
         this.taskName = taskName;
         this.taskText = taskText;
         this.deadLine = deadLine;
     }
 
-    @ManyToOne(cascade = {DETACH, REFRESH, MERGE, PERSIST}, fetch = LAZY)
-    private Lesson lesson;
+
 }

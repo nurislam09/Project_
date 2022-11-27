@@ -19,4 +19,5 @@ public interface GroupRepository {
     void deleteGroup(Long id);
 
     void assignGroup(Long courseId, Long id) throws IOException;
+
 }

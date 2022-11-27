@@ -35,6 +35,19 @@ public class Instructor {
     @Column
     private String specialization;
 
+    @ManyToOne(cascade = {DETACH, MERGE, REFRESH, PERSIST}, fetch = EAGER)
+    private Course course;
+
+    private int students = 0;
+    public void plus(){
+        students++;
+    }
+
+    public void minus(){
+        students--;
+    }
+
+
     public Instructor(String firstname, String lastname, String phoneNumber, String email, String specialization) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -43,7 +56,5 @@ public class Instructor {
         this.specialization = specialization;
     }
 
-    @ManyToOne(cascade = {DETACH, MERGE, REFRESH, PERSIST}, fetch = EAGER)
-    private Course course;
 
 }

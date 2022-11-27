@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -41,7 +42,14 @@ public class StudentRepositoryImpl implements StudentRepository {
         group.addStudent(student);
         student.setGroup(group);
         entityManager.merge(student);
+
+        for (Course c:student.getGroup().getCourses()) {
+            for (Instructor i: c.getInstructors()) {
+                i.plus();
+            }
+        }
     }
+
 
     @Override
     public void updateStudent(Long id, Student student) {
@@ -56,6 +64,42 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public void deleteStudent(Long id) {
-        entityManager.remove(entityManager.find(Student.class,id));
+       Student student = entityManager.find(Student.class,id);
+       student.getGroup().getCompany().minusStudent();
+        for (Course c:student.getGroup().getCourses()) {
+            for (Instructor i:c.getInstructors()) {
+                i.minus();
+            }
+        }
+        student.setGroup(null);
+        entityManager.remove(student);
+        //entityManager.remove(entityManager.find(Student.class, id));
+    }
+
+    @Override
+    public void assignStudent(Long groupId, Long studentId) throws IOException {
+        Student student = entityManager.find(Student.class, studentId);
+        Group group = entityManager.find(Group.class, groupId);
+        if (group.getStudents() != null) {
+            for (Student g : group.getStudents()) {
+                if (g.getId() == studentId) {
+                    throw new IOException("This student already exists!");
+                }
+            }
+        }
+//        for (Course c: student.getGroup().getCourses()) {
+//            for (Instructor i: c.getInstructors()) {
+//                i.minus();
+//            }
+//        }
+//        for (Course c: group.getCourses()) {
+//            for (Instructor i: c.getInstructors()) {
+//                i.plus();
+//            }
+//        }
+        student.getGroup().getStudents().remove(student);
+        group.assignStudent(student);
+        student.setGroup(group);
+        entityManager.merge(student);
     }
 }

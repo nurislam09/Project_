@@ -48,6 +48,7 @@
     <td th:text="${instructor.phoneNumber}"></td>
     <td th:text="${instructor.email}"></td>
     <td th:text="${instructor.specialization}"></td>
+    <td th:text="${instructor.students}"></td>
 
     <td>
       <a th:href="@{/updateInstructor/{id}(id=${instructor.id})}">

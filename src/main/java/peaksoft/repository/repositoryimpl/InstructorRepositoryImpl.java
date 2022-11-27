@@ -1,13 +1,16 @@
 package peaksoft.repository.repositoryimpl;
 
 import peaksoft.model.Course;
+import peaksoft.model.Group;
 import peaksoft.model.Instructor;
+import peaksoft.model.Student;
 import peaksoft.repository.InstructorRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -35,12 +38,19 @@ public class InstructorRepositoryImpl implements InstructorRepository {
 
     @Override
     public void saveInstructor(Long courseId, Instructor instructor) {
-        System.out.println("5");
         Course course = entityManager.find(Course.class, courseId);
+
+        if (course.getGroups()!=null){
+            for (Group group : course.getGroups()) {
+                for (Student student: group.getStudents()) {
+                    instructor.plus();
+                }
+            }
+        }
         course.addInstructor(instructor);
         instructor.setCourse(course);
         entityManager.merge(instructor);
-        System.out.println("6");
+
     }
 
     @Override
@@ -58,4 +68,32 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     public void deleteInstructor(Long id) {
         entityManager.remove(entityManager.find(Instructor.class, id));
     }
-}
+
+    @Override
+    public void assignInstructor(Long courseId, Long instructorId) throws IOException {
+        Instructor instructor = entityManager.find(Instructor.class, instructorId);
+        Course course = entityManager.find(Course.class, courseId);
+        if (course.getInstructors()!=null){
+            for (Instructor g : course.getInstructors()) {
+                if (g.getId() == instructorId) {
+                    throw new IOException("This instructor already exists!");
+                }
+            }
+        }
+//        for (Group g:instructor.getCourse().getGroups()) {
+//            for (Student s:g.getStudents()) {
+//                instructor.minus();
+//            }
+//        }
+//        for (Group g: course.getGroups()) {
+//            for (Student s:g.getStudents()) {
+//                instructor.plus();
+//            }
+//        }
+        instructor.getCourse().getInstructors().remove(instructor);
+        instructor.setCourse(course);
+        course.addInstructor(instructor);
+        entityManager.merge(instructor);
+        entityManager.merge(course);
+    }
+    }

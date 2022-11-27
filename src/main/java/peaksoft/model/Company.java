@@ -27,7 +27,9 @@ public class Company {
         @Column(length = 500)
         private String locatedCountry;
 
-        @Column(length = 500)
+        @OneToMany(cascade = {DETACH, MERGE, REFRESH, REMOVE}, fetch = LAZY, mappedBy = "company")
+        private List<Course> courses;
+
         private int count;
 
         public void plusStudent(){
@@ -37,14 +39,11 @@ public class Company {
                 count--;
         }
 
-        public Company(String companyName, String locatedCountry , Integer count) {
+
+        public Company(String companyName, String locatedCountry ) {
                 this.companyName = companyName;
                 this.locatedCountry = locatedCountry;
-                this.count= count;
         }
-
-        @OneToMany(cascade = {DETACH, MERGE, REFRESH, REMOVE}, fetch = LAZY, mappedBy = "company")
-        private List<Course> courses;
 
         public void addCourse(Course course) {
                 if (courses == null) courses = new ArrayList<>();
