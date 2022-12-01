@@ -34,6 +34,7 @@
     <th scope="col">Group Name</th>
     <th scope="col">Date Of Start</th>
     <th scope="col">Image</th>
+    <th scope="col">AssignStudent</th>
     <th scope="col">Students</th>
     <th scope="col">Update</th>
     <th scope="col">Delete</th>
@@ -45,6 +46,19 @@
     <td th:text="${group.groupName}"></td>
     <td th:text="${group.dataOfStart}"></td>
     <td th:text="${group.image}"></td>
+
+    <td>
+      <form th:method="POST"
+            th:action="@{/{groupId}/assignStudent(groupId=${group.getId()})}">
+        <select name="student" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                th:object="${student}" th:field="*{id}">
+          <option th:each="student : ${students}"
+                  th:value="${student.id}"
+                  th:text="${student.firstName}"></option>
+        </select>
+        <input type="submit" value="submit"/>
+      </form>
+    </td>
 
     <td>
       <a th:href="@{/getAllStudentByGroupId/{groupId}(groupId=${group.id})}">
@@ -79,5 +93,13 @@
     <button style="font-size: 25px;"> SEE ALL GROUP</button>
   </a>
 </div>
+
+</div>
+<div style="text-align: center">
+  <a th:company th:href="@{/getAllCompany}">
+    <button style="font-size: 15px;"> Back to companies</button>
+  </a>
+</div>
+
 </body>
 </html>

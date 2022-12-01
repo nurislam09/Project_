@@ -36,6 +36,7 @@
     <th scope="col">Phone number</th>
     <th scope="col">Email</th>
     <th scope="col">Specialization</th>
+    <th scope="col">Student_count</th>
     <th scope="col">Update</th>
     <th scope="col">Delete</th>
   </tr>
@@ -48,13 +49,20 @@
     <td th:text="${instructor.phoneNumber}"></td>
     <td th:text="${instructor.email}"></td>
     <td th:text="${instructor.specialization}"></td>
-    <td th:text="${instructor.students}"></td>
+    <td th:text="${instructor.student}"></td>
+
+    <div>
+
+    </div>
 
     <td>
       <a th:href="@{/updateInstructor/{id}(id=${instructor.id})}">
         <button>Update</button>
       </a>
     </td>
+    <div>
+
+    </div>
 
     <td>
       <a th:href="@{/{courseId}/{id}/deleteInstructorById(courseId=${courseId}, id=${instructor.id})}"
@@ -66,6 +74,9 @@
   </tr>
   </tbody>
 </table>
+<div>
+
+</div>
 <br><br><br><br>
 <div style="text-align: center">
   <a th:href="@{/getAllInstructorByCourseId/{courseId}/new(courseId=${courseId})}">

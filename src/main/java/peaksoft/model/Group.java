@@ -41,17 +41,6 @@ public class Group {
     @ManyToOne(cascade = {MERGE, DETACH, PERSIST, REFRESH}, fetch = FetchType.EAGER)
     private Company company;
 
-    private int count;
-
-    public void plusCount(){
-        count++;
-    }
-
-    public void minusCount(){
-        count--;
-    }
-
-
     public Group(String groupName, Date dataOfStart, String image) {
         this.groupName = groupName;
         this.dataOfStart = dataOfStart;
@@ -61,7 +50,6 @@ public class Group {
     public void addCourse(Course course) {
         if (courses == null) courses = new ArrayList<>();
         courses.add(course);
-        plusCount();
     }
     public void assignStudent(Student student){
         if (students==null){

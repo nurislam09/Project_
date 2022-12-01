@@ -53,13 +53,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public void deleteCourse(Long id) {
-       // entityManager.remove(entityManager.find(Course.class, id));
-        Course course = entityManager.find(Course.class, id);
-        for (Group g: course.getGroups()) {
-            g.minusCount();
-            g.getCourses().remove(course);
-        }
-        course.setCompany(null);
-        entityManager.remove(course);
+        entityManager.remove(entityManager.find(Course.class, id));
+
     }
 }

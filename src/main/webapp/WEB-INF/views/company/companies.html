@@ -34,9 +34,9 @@
         <th scope="colgroup">Id</th>
         <th scope="col"
 
-
         >Company Name</th>
         <th scope="col">Located Country</th>
+        <th scope="col">Student_count</th>
         <th scope="col">Courses</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -47,6 +47,7 @@
         <td th:text="${company.id}"></td>
         <td th:text="${company.companyName}"></td>
         <td th:text="${company.locatedCountry}"></td>
+        <td th:text="${company.student}"></td>
 
         <td>
             <a th:href="@{/getAllCourseByCompanyId/{companyId}(companyId=${company.id})}">

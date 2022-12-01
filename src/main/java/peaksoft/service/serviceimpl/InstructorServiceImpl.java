@@ -55,7 +55,7 @@ import java.util.List;
         }
 
         @Override
-        public void assignGroup(Long courseId, Long id) throws IOException {
+        public void assignInstructorToCourse(Long courseId, Long id) throws IOException {
             instructorRepository.assignInstructor(courseId, id);
         }
 

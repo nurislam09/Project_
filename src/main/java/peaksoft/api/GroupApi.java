@@ -1,6 +1,7 @@
 package peaksoft.api;
 
 import peaksoft.model.Group;
+import peaksoft.model.Student;
 import peaksoft.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,15 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import peaksoft.service.StudentService;
+
+import java.io.IOException;
 
 
 @Controller
 public class GroupApi {
     private final GroupService groupService;
+    private final StudentService studentService;
 
     @Autowired
-    public GroupApi(GroupService groupService) {
+    public GroupApi(GroupService groupService,StudentService studentService) {
         this.groupService = groupService;
+        this.studentService=studentService;
     }
 
     @GetMapping("/getAllGroup/{courseId}")
@@ -28,9 +34,10 @@ public class GroupApi {
     }
 
     @GetMapping("/getAllGroupByCourseId/{courseId}")
-    public String getAllGroupByCourseId(@PathVariable Long courseId, Model model) {
+    public String getAllGroupByCourseId(@PathVariable Long courseId, Model model,@ModelAttribute("student")Student student) {
         model.addAttribute("getAllGroupByCourseId", groupService.getAllGroup(courseId));
         model.addAttribute("courseId", courseId);
+        model.addAttribute("students",studentService.getAllStudent());
         return "/group/getAllGroups";
     }
 
@@ -76,7 +83,12 @@ public class GroupApi {
         return "redirect:/getAllGroupByCourseId/" + courseId;
     }
 
-
+    @PostMapping("/{groupId}/assignStudent")
+    private String assignStudent(@PathVariable("groupId") Long groupId,
+                                 @ModelAttribute("student") Student student) throws IOException, IOException {
+        studentService.assignGroup( groupId,student.getId());
+        return "redirect:/getAllStudentByGroupId/" + groupId;
+    }
 
 
 }

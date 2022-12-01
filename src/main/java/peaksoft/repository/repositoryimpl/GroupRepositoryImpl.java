@@ -56,27 +56,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void deleteGroup(Long id) {
-       // entityManager.remove(entityManager.find(Group.class, id));
-        Group group = entityManager.find(Group.class, id);
-        for (Student s: group.getStudents()) {
-            group.getCompany().minusStudent();
-        }
-
-        for (Course c: group.getCourses()) {
-            for (Student student: group.getStudents()) {
-                for (Instructor i: c.getInstructors()) {
-                    i.minus();
-                }
-            }
-        }
-
-        for (Course c : group.getCourses()) {
-            c.getGroups().remove(group);
-            group.minusCount();
-        }
-        group.getStudents().forEach(x -> entityManager.remove(x));
-        group.setCourses(null);
-        entityManager.remove(group);
+        entityManager.remove(entityManager.find(Group.class, id));
     }
 
 
@@ -84,26 +64,16 @@ public class GroupRepositoryImpl implements GroupRepository {
     public void assignGroup(Long courseId, Long id) throws IOException {
         Group group = entityManager.find(Group.class, id);
         Course course = entityManager.find(Course.class, courseId);
-        if (course.getGroups()!=null){
+        if (course.getGroups() != null) {
             for (Group g : course.getGroups()) {
                 if (g.getId() == id) {
                     throw new IOException("This group already exists!");
                 }
             }
         }
-
-        if (course.getInstructors() != null) {
-//            for (Instructor i: course.getInstructors()) {
-//                for (Student s: group.getStudents()) {
-//                   // i.plus();
-//                }
-//            }
-//        }
-
         group.addCourse(course);
         course.addGroup(group);
         entityManager.merge(group);
         entityManager.merge(course);
-    }
     }
 }

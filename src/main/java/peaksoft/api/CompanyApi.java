@@ -1,6 +1,7 @@
 package peaksoft.api;
 
 import peaksoft.model.Company;
+import peaksoft.model.Course;
 import peaksoft.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CompanyApi {
     private final CompanyService companyService;
+    private Company company = new Company();
 
     @Autowired
     public CompanyApi(CompanyService companyService) {
@@ -20,6 +22,7 @@ public class CompanyApi {
     @GetMapping("/getAllCompany")
     public String getAllCompany(Model model) {
         model.addAttribute("getAllCompany", companyService.getAllCompany());
+        company.sout();
         return "/company/companies";
     }
 

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import peaksoft.enums.StudyFormat;
-import peaksoft.model.Group;
 
 import javax.persistence.*;
 

@@ -39,14 +39,6 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     @Override
     public void saveInstructor(Long courseId, Instructor instructor) {
         Course course = entityManager.find(Course.class, courseId);
-
-        if (course.getGroups()!=null){
-            for (Group group : course.getGroups()) {
-                for (Student student: group.getStudents()) {
-                    instructor.plus();
-                }
-            }
-        }
         course.addInstructor(instructor);
         instructor.setCourse(course);
         entityManager.merge(instructor);
@@ -73,27 +65,17 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     public void assignInstructor(Long courseId, Long instructorId) throws IOException {
         Instructor instructor = entityManager.find(Instructor.class, instructorId);
         Course course = entityManager.find(Course.class, courseId);
-        if (course.getInstructors()!=null){
-            for (Instructor g : course.getInstructors()) {
-                if (g.getId() == instructorId) {
+        if (course.getInstructors() != null) {
+            for (Instructor i : course.getInstructors()) {
+                if (i.getId() == instructorId) {
                     throw new IOException("This instructor already exists!");
                 }
             }
         }
-//        for (Group g:instructor.getCourse().getGroups()) {
-//            for (Student s:g.getStudents()) {
-//                instructor.minus();
-//            }
-//        }
-//        for (Group g: course.getGroups()) {
-//            for (Student s:g.getStudents()) {
-//                instructor.plus();
-//            }
-//        }
-        instructor.getCourse().getInstructors().remove(instructor);
+
         instructor.setCourse(course);
         course.addInstructor(instructor);
-        entityManager.merge(instructor);
         entityManager.merge(course);
+        entityManager.merge(instructor);
     }
     }

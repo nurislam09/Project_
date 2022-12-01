@@ -45,11 +45,17 @@ public class StudentApi {
     public String newStudent(@PathVariable Long groupId, Model model) {
         model.addAttribute("newStudent", new Student());
         model.addAttribute("groupId", groupId);
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
         return "/student/addStudent";
     }
 
     @PostMapping("/{groupId}/saveStudent")
-    public String saveStudent(@PathVariable Long groupId, @ModelAttribute("newStudent") Student student) {
+    public String saveStudent(@PathVariable Long groupId, Model model, @ModelAttribute("newStudent") Student student) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
+        model.addAttribute("groupId", groupId);
         studentService.saveStudent(groupId, student);
         return "redirect:/getAllStudentByGroupId/" + groupId;
     }
@@ -59,6 +65,8 @@ public class StudentApi {
         Student student = studentService.getStudentById(id);
         model.addAttribute("updateStudent", student);
         model.addAttribute("groupId", student.getGroup().getId());
+        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
         return "/student/updateStudent";
     }
 
@@ -76,13 +84,13 @@ public class StudentApi {
         return "redirect:/getAllStudentByGroupId/" + groupId;
     }
 
-    @GetMapping("/{id}/addStudent")
-    public String assignStudent(@PathVariable Long id, Model model) {
-        model.addAttribute("student", new Student());
-        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
-        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
-        model.addAttribute("groupId", id);
-        return "/student/addStudent";
-    }
+//    @GetMapping("/{id}/addStudent")
+//    public String assignStudent(@PathVariable Long id, Model model) {
+//        model.addAttribute("student", new Student());
+//        model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
+//        model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
+//        model.addAttribute("groupId", id);
+//        return "/student/addStudent";
+//    }
 
 }

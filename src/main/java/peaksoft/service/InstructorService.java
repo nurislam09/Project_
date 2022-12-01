@@ -13,5 +13,5 @@ public interface InstructorService {
     void updateInstructor(Long id, Instructor instructor);
     void deleteInstructor(Long id);
 
-    void assignGroup(Long courseId, Long id) throws IOException;
+    void assignInstructorToCourse(Long courseId, Long id) throws IOException;
 }
