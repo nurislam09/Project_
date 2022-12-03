@@ -59,7 +59,7 @@ public class CourseApi {
     }
 
     @PostMapping("/{companyId}/save")
-    public String saveCourse(@PathVariable Long companyId, @ModelAttribute("newCourse") Course course) {
+    public String saveCourse(@PathVariable Long companyId, @ModelAttribute("newCourse") Course course) throws IOException{
         courseService.saveCourse(companyId, course);
         return "redirect:/getAllCourseByCompanyId/" + companyId;
     }
@@ -74,7 +74,7 @@ public class CourseApi {
 
     @PostMapping("/{companyId}/{id}/saveUpdateCourse")
     public String saveUpdateCourse(@PathVariable("companyId") Long companyId,
-                                   @PathVariable("id") Long id, @ModelAttribute("updateCourse") Course course) {
+                                   @PathVariable("id") Long id, @ModelAttribute("updateCourse") Course course) throws IOException {
         courseService.updateCourse(id, course);
         return "redirect:/getAllCourse/{companyId}" + companyId;
     }

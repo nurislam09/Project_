@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 public class InstructorApi {
 
@@ -48,7 +50,7 @@ public class InstructorApi {
     }
 
     @PostMapping("/{courseId}/saveInstructor")
-    public String saveInstructor(@PathVariable Long courseId, @ModelAttribute("newInstructor") Instructor instructor) {
+    public String saveInstructor(@PathVariable Long courseId, @ModelAttribute("newInstructor") Instructor instructor) throws IOException {
         instructorService.saveInstructor(courseId, instructor);
         return "redirect:/getAllInstructorByCourseId/" + courseId;
     }
@@ -64,7 +66,7 @@ public class InstructorApi {
     @PostMapping("/{courseId}/{id}/saveUpdateInstructor")
     public String saveUpdateInstructor(@PathVariable Long courseId,
                                        @PathVariable Long id,
-                                       @ModelAttribute("updateInstructor") Instructor instructor) {
+                                       @ModelAttribute("updateInstructor") Instructor instructor) throws IOException{
         instructorService.updateInstructor(id, instructor);
         return "redirect:/getAllInstructorByCourseId/" + courseId;
     }

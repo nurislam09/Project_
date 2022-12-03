@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @Controller
 public class CompanyApi {
@@ -38,8 +40,8 @@ public class CompanyApi {
         return "/company/addCompany";
     }
 
-    @PostMapping("/save") // th:action="@{save}"
-    public String saveCompany(@ModelAttribute("newCompany") Company company) { // th:object="${newCompany}"
+    @PostMapping("/save")
+    public String saveCompany(@ModelAttribute("newCompany") Company company) throws IOException {
         companyService.saveCompany(company);
         return "redirect:/getAllCompany";
     }
@@ -51,7 +53,7 @@ public class CompanyApi {
     }
 
     @PostMapping("/saveUpdateCompany")
-    public String saveUpdateCompany(@ModelAttribute("company") Company company) {
+    public String saveUpdateCompany(@ModelAttribute("company") Company company) throws IOException{
         companyService.updateCompany(company);
         return "redirect:/getAllCompany";
     }

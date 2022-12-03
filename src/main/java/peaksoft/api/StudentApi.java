@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 public class StudentApi {
 
@@ -51,7 +53,7 @@ public class StudentApi {
     }
 
     @PostMapping("/{groupId}/saveStudent")
-    public String saveStudent(@PathVariable Long groupId, Model model, @ModelAttribute("newStudent") Student student) {
+    public String saveStudent(@PathVariable Long groupId, Model model, @ModelAttribute("newStudent") Student student)throws IOException {
         model.addAttribute("student", new Student());
         model.addAttribute("studyFormatOnline", StudyFormat.ONLINE);
         model.addAttribute("studyFormatOffline", StudyFormat.OFFLINE);
@@ -73,7 +75,7 @@ public class StudentApi {
     @PostMapping("/{groupId}/{id}/saveUpdateStudent")
     public String saveUpdateStudent(@PathVariable Long groupId,
                                     @PathVariable Long id,
-                                    @ModelAttribute("updateStudent") Student student) {
+                                    @ModelAttribute("updateStudent") Student student)throws IOException {
         studentService.updateStudent(id, student);
         return "redirect:/getAllStudentByGroupId/" + groupId;
     }
