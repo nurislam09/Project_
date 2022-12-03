@@ -9,8 +9,8 @@ public interface StudentService {
     List<Student> getAllStudent();
     List<Student> getAllStudent(Long groupId);
     Student getStudentById(Long id);
-    void saveStudent(Long groupId, Student student);
-    void updateStudent(Long id, Student student);
+    void saveStudent(Long groupId, Student student)throws IOException;
+    void updateStudent(Long id, Student student) throws IOException;
     void deleteStudent(Long id);
 
     void assignGroup(Long courseId, Long id) throws IOException;

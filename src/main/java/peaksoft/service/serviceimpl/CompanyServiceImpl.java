@@ -7,6 +7,7 @@ import peaksoft.repository.CompanyRepository;
 import peaksoft.service.CompanyService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -32,12 +33,14 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         @Override
-        public void saveCompany(Company company) {
+        public void saveCompany(Company company) throws IOException {
+            validator(company.getCompanyName(), company.getLocatedCountry());
             companyRepository.saveCompany(company);
         }
 
         @Override
-        public void updateCompany(Company company) {
+        public void updateCompany(Company company) throws IOException {
+            validator(company.getCompanyName(), company.getLocatedCountry());
             companyRepository.updateCompany(company);
         }
 
@@ -45,6 +48,23 @@ public class CompanyServiceImpl implements CompanyService {
         public void deleteCompany(Company company) {
             companyRepository.deleteCompany(company);
         }
+
+    private void validator(String companyName, String locatedCountry) throws IOException {
+        if (companyName.length()>2 && locatedCountry.length()>2) {
+            for (Character i : companyName.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В названи компании нельзя вставлять цифры");
+                }
+            }
+            for (Character i : locatedCountry.toCharArray()) {
+                if (!Character.isAlphabetic(i)) {
+                    throw new IOException("В названии страны нельзя вставлять цифры");
+                }
+            }
+        }else {
+            throw new IOException("В название компании или страны должно быть как минимум 3 буквы");
+        }
+    }
     }
 
 
