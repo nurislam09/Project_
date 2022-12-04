@@ -82,7 +82,7 @@ public class CourseApi {
     @GetMapping("/{companyId}/{id}/deleteCourseById")
     public String deleteCourseById(@PathVariable("companyId") Long companyId, @PathVariable("id") Long id) {
         courseService.deleteCourse(id);
-        return "redirect:/getAllCourse/{companyId}" + companyId;
+        return "redirect:/getAllCourseByCompanyId/{companyId}" + companyId;
     }
 
     @PostMapping("/{courseId}/assignGroup")
