@@ -45,6 +45,9 @@ import java.util.List;
                 if (i.getEmail().equals(student.getEmail())){
                     throw new IOException("Student with email already exists!");
                 }
+                if (i.getPhoneNumber().equals(student.getPhoneNumber())) {
+                    throw new IOException("Student with phone number already exists!");
+                }
             }
             validator(student.getPhoneNumber().replace(" ",""),student.getFirstName().replace(" ",""),student.getLastName().replace(" ",""));
             studentRepository.saveStudent(groupId, student);

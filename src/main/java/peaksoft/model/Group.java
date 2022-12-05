@@ -51,12 +51,6 @@ public class Group {
         if (courses == null) courses = new ArrayList<>();
         courses.add(course);
     }
-    public void assignStudent(Student student){
-        if (students==null){
-            students=new ArrayList<>();
-        }
-        students.add(student);
-    }
 
     public void addStudent(Student student) {
         if (students == null) students = new ArrayList<>();

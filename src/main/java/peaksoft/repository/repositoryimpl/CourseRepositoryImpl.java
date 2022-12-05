@@ -3,6 +3,7 @@ package peaksoft.repository.repositoryimpl;
 import peaksoft.model.Company;
 import peaksoft.model.Course;
 import peaksoft.model.Group;
+import peaksoft.model.Student;
 import peaksoft.repository.CourseRepository;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +54,16 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public void deleteCourse(Long id) {
+        Course course= entityManager.find(Course.class,id);
+        int count=0;
+        for(Group g: course.getGroups()){
+            for(Student s: g.getStudents()){
+                count++;
+            }
+        }
+        int v =course.getCompany().getStudent();
+        v -= count;
+        course.getCompany().setStudent(v);
         entityManager.remove(entityManager.find(Course.class, id));
 
     }

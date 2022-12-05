@@ -56,6 +56,21 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void deleteGroup(Long id) {
+        Group group = entityManager.find(Group.class, id);
+        int count = 0;
+        for (Student s : group.getStudents()) {
+            count++;
+        }
+        for (Course c : group.getCourses()) {
+            int student = c.getCompany().getStudent();
+            student -= count;
+            c.getCompany().setStudent(student);
+            for (Instructor i : c.getInstructors()) {
+                int student1 = i.getStudent();
+                student1 -= count;
+                i.setStudent(student1);
+            }
+        }
         entityManager.remove(entityManager.find(Group.class, id));
     }
 

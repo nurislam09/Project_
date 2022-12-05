@@ -72,7 +72,13 @@ public class InstructorRepositoryImpl implements InstructorRepository {
                 }
             }
         }
-
+        int count=0;
+        for(Group g:course.getGroups()){
+            for(Student s:g.getStudents()){
+                count++;
+            }
+        }
+        instructor.setStudent(count);
         instructor.setCourse(course);
         course.addInstructor(instructor);
         entityManager.merge(course);

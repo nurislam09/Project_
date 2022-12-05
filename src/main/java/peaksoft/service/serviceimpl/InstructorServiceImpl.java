@@ -45,6 +45,9 @@ import java.util.List;
                 if (i.getEmail().equals(instructor.getEmail())){
                     throw new IOException("Instructor with email already exists!");
                 }
+                if (i.getPhoneNumber().equals(instructor.getPhoneNumber())) {
+                    throw new IOException("Student with phone number already exists!");
+                }
             }
             validator(instructor.getPhoneNumber().replace(" ",""),instructor.getLastname().replace(" ",""),instructor.getFirstname().replace(" ",""));
             instructorRepository.saveInstructor(courseId, instructor);
